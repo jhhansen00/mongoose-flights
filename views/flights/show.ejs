@@ -1,0 +1,61 @@
+<%- include('../partials/header') %>
+
+<section>
+    <div>Flight No: </div>
+    <div><%= flight.flightNo %></div>
+    <div>Airline: </div>
+    <div><%= flight.airline %></div>
+    <div>Airport: </div>
+    <div><%= flight.airport %></div>
+    <div>Departs: </div>
+    <div><%= flight.departs %></div>
+    <!-- <div>Destinations: </div>
+    <ul>
+        <%- flight.cast.map(p=> `<li>${f.</li>)
+    </ul> -->
+</section>
+
+</section>
+<!-- new markup below -->
+<br><br><h2>Destinations</h2>
+<form id="add-destinations-form" method="POST"
+  action="/movies/<%= flight._id %>/destinations">
+  <label>Destinations:</label>
+  <textarea name="content"></textarea>
+  <label>Airport:</label>
+  <select name="Airport">
+    <option value="AUS">1</option>
+    <option value="DFW">2</option>
+    <option value="DEN">3</option>
+    <option value="LAX">4</option>
+    <option value="SAN" selected>5</option>
+  </select>
+  <br>
+  <label>Departs:
+    <input name="departs" type="date">
+  </label><br>
+  <input type="submit" value="Add Destination">
+</form>
+
+<% if (flight.destinations.length) { %>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Review</th>
+          <th>Rating</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% flight.destinations.forEach(function(r) { %>
+          <tr>
+            <td><%= r.createdAt.toLocaleDateString() %></td>
+            <td><%= r.content %></td>
+            <td><%= r.rating %></td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  <% } else { %>
+    <h5>No Destinations</h5>
+  <% } %>
